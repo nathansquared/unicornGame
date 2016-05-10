@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import CoreMotion
 
 
 struct PhysicsCategory {
@@ -20,12 +21,25 @@ struct PhysicsCategory {
 
 class GameScene: SKScene {
     
+    //Adding CoreMotion
+    let manger = CMMotionManager()
+    
+    
     var Ground = SKSpriteNode()
     var Unicorn = SKSpriteNode()
     var tapLocation = CGPoint(x: 0, y: 0)
     
     override func didMoveToView(view: SKView) {
      
+        //Starting accelerometer
+        manger.startAccelerometerUpdates()
+        manger.accelerometerUpdateInterval = 0.1
+        manger.startAccelerometerUpdatesToQueue(NSOperationQueue.mainQueue()) {
+            (data, error) in
+            
+        }
+        
+        
         Ground = SKSpriteNode(imageNamed: "ground")
         Ground.setScale(0.5)
         Ground.position = CGPoint(x: self.frame.width / 2, y: 0 + Ground.frame.height / 4.5)
